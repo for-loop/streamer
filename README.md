@@ -1,4 +1,4 @@
-# Confluent Kafka
+# streamer
 
 Get started with Confluent Kafka. It uses custom Kafka Connect with MariaDB JDBC driver support
 
