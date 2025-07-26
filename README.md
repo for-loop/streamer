@@ -128,6 +128,14 @@ docker compose restart control-center
 docker compose stop
 ```
 
+## Docker commands
+
+### Monitor logs in Kafka Connect container
+
+```bash
+docker logs -f connect
+```
+
 ## UI
 
 ### Control Center
