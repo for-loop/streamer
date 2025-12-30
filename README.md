@@ -112,6 +112,96 @@ JDBCSinkConnector tile should be available when the "Add Connector" button is cl
 
 If it fails, check the log in the `connect` container and troubleshoot
 
+### List active connectors
+
+```bash
+curl -s "http://localhost:8083/connectors"
+```
+
+### Status summary of all connectors
+
+> This shows both the status and the config details
+
+```bash
+curl -s "http://localhost:8083/connectors?expand=info&expand=status" | jq
+```
+
+### Status for specific connector
+
+```bash
+curl -s "http://localhost:8083/connectors/<connector_name>/status" | jq
+```
+
+### Add a new connector
+
+```bash
+curl -X POST -H "Content-Type: application/json" --data @your-config-file.json http://localhost:8083/connectors
+```
+
+### Create or update connector config
+
+```bash
+curl -X PUT -H "Content-Type: application/json" --data @your-config-file-config-only.json http://localhost:8083/connectors/<connector_name>/config
+```
+
+> Note: The PUT method typically expects only the `config` object as the payload, not the wrapper with the `name`.
+
+### Delete a specific connector
+
+```bash
+curl -s -X DELETE "http://localhost:8083/connectors/<connector_name>"
+```
+
+For more details, see https://developer.confluent.io/courses/kafka-connect/rest-api/
+
+## Schema Registry
+
+### List registered subjects
+
+```bash
+curl -X GET http://localhost:8081/subjects
+```
+
+### List versions of a specific subject
+
+```bash
+curl -X GET http://localhost:8081/subjects/<my-subject-value>/versions
+```
+
+> The default subject value is `<topic name>-value`
+
+### View the full schema content
+
+```bash
+curl -X GET http://localhost:8081/subjects/<my-subject-value>/versions/latest | jq .
+```
+
+### Check if a particular schema has been registered
+
+```bash
+curl -X POST -H "Content-Type: application/vnd.schemaregistry.v1+json" \
+     --data "{\"schema\": $(jq -Rs . <myschema>.avsc)}" \
+     http://localhost:8081/subjects/<my-subject-value>
+```
+
+### Register schema
+
+```bash
+curl -X POST -H "Content-Type: application/vnd.schemaregistry.v1+json" \
+     --data "{\"schema\": $(jq -Rs . <myschema>.avsc)}" \
+     http://localhost:8081/subjects/<my-subject-value>/versions
+```
+
+### Delete schema
+
+Soft delete all versions
+
+```bash
+curl -X DELETE http://localhost:8081/subjects/<my-existing-subject>
+```
+
+See https://docs.confluent.io/platform/7.9/schema-registry/schema-deletion-guidelines.html
+
 ---
 
 ## Docker compose commands
