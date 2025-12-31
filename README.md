@@ -68,7 +68,7 @@ The problem, however, is that the Control Center does not provide this connector
 4. Download `mariadb-java-client-x.x.x.jar` from [Maven](https://repo.maven.apache.org/maven2/org/mariadb/jdbc/mariadb-java-client/) and put it in `connect-plugins` directory. This is the JDBC driver for MariaDB
 5. Under the `connect` service in compose.yml, use the image from confluent
     ```yml
-    image: confluentinc/cp-server-connect-base:7.9.0
+    image: confluentinc/cp-server-connect-base:8.1.1
     ```
 5. Under the `connect` service in compose.yml, mount the volume from `connect-plugins` to `/usr/share/confluent-hub-components/confluentinc-kafka-connect-jdbc/lib/`
     ```yml
@@ -200,7 +200,7 @@ Soft delete all versions
 curl -X DELETE http://localhost:8081/subjects/<my-existing-subject>
 ```
 
-See https://docs.confluent.io/platform/7.9/schema-registry/schema-deletion-guidelines.html
+See https://docs.confluent.io/platform/8.1/schema-registry/schema-deletion-guidelines.html
 
 ---
 
@@ -236,4 +236,4 @@ http://localhost:9021
 
 Adapted from docker-compose.yml in [Quick Start for Confluent Platform](https://docs.confluent.io/platform/current/get-started/platform-quickstart.html)
 
-> Might want to try the [community edition](https://github.com/confluentinc/cp-all-in-one/blob/7.9.0-post/cp-all-in-one-community/docker-compose.yml) instead
+> Might want to try the [community edition](https://github.com/confluentinc/cp-all-in-one/blob/8.1.1-post/cp-all-in-one-community/docker-compose.yml) instead
