@@ -93,12 +93,30 @@ docker compose up -d
 
 Wait a few minutes for the Control Center to recognize the Connect cluster
 
-## Create a topic
+## Configure topics
 
 1. Go to Topics in the Control Center
 2. Click "Add topic" button
 3. Enter Topic name and Number of partitions
 4. Click "Create with defaults" button
+
+### Add topic
+
+```bash
+docker exec -it broker kafka-topics --create --topic <your-topic-name> --bootstrap-server broker:29092 --partitions 1 --replication-factor 1
+```
+
+### Describe topic
+
+```bash
+docker exec -it broker kafka-topics --describe --topic <your-topic-name> --bootstrap-server broker:29092
+```
+
+### Delete topic
+
+```bash
+docker exec -it broker kafka-topics --bootstrap-server broker:29092 --delete --topic <your-topic-name>
+```
 
 ## Configure sink connector
 
