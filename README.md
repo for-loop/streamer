@@ -1,6 +1,6 @@
 # streamer
 
-Get started with Confluent Kafka. It uses custom Kafka Connect with MariaDB JDBC driver support
+Get started with Confluent Kafka. It uses Kafka Connect with PostgreSQL JDBC driver support
 
 > Adapted from [Quick Start for Confluent Platform](https://docs.confluent.io/platform/current/get-started/platform-quickstart.html)
 
@@ -54,9 +54,9 @@ In the original [docker-compose.yml](https://github.com/confluentinc/cp-all-in-o
 
 ## Set up JDBC Sink Connector
 
-The consumer can be replaced by a connector that transfers data from the topic of interest to MariaDB using Kafka Connect.
+The consumer can be replaced by a connector that transfers data from the topic of interest to TimescaleDB using Kafka Connect.
 
-The problem, however, is that the Control Center does not provide this connector by default. When you click "Add connector" in the Control Center, you will want to see a tile that says, "JDBCSinkConnector". Also, you will need a JDBC driver for MariaDB. There are two ways to set this up—either a manual install or docker compose
+The problem, however, is that the Control Center does not provide this connector by default. When you click "Add connector" in the Control Center, you will want to see a tile that says, "JDBCSinkConnector". Also, you will need a JDBC driver for PostgreSQL. There are two ways to set this up—either a manual install or docker compose
 
 ### Manually install the JAR files
 
@@ -65,8 +65,7 @@ The problem, however, is that the Control Center does not provide this connector
 1. Download and unzip the file for "Confluent Platform (self-managed)" from [Confluent](https://www.confluent.io/hub/confluentinc/kafka-connect-jdbc). This contains the JAR files for the JDBCSinkConnector
 2. Create a directory named `connect-plugins` at the root of this repo
 3. Copy the JAR files from `lib` to `connect-plugins` directory
-4. Download `mariadb-java-client-x.x.x.jar` from [Maven](https://repo.maven.apache.org/maven2/org/mariadb/jdbc/mariadb-java-client/) and put it in `connect-plugins` directory. This is the JDBC driver for MariaDB
-5. Under the `connect` service in compose.yml, use the image from confluent
+4. Under the `connect` service in compose.yml, use the image from confluent
     ```yml
     image: confluentinc/cp-server-connect-base:8.1.1
     ```
@@ -83,7 +82,7 @@ The problem, however, is that the Control Center does not provide this connector
 
 ### Build custom connector image (recommended)
 
-This will build a custom image containing the JDBC driver for MariaDB, as configured in `pom.xml`
+This will build a custom image containing the JDBC driver for PostgreSQL
 
 Run the containers
 
